@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,7 +34,7 @@ public class ExpenseController {
 		System.out.println("Inicio");
 		System.out.println("controller-get-all-expenses-to-show: "+expenseService.allExpenses());
 		List<Expense> expenses = expenseService.allExpenses();
-		System.out.println(expenses.get(0).getId());
+		//System.out.println(expenses.get(0).getId());
 		model.addAttribute("expenses", expenses);
 		return "expense";
 	}
@@ -71,6 +72,18 @@ public class ExpenseController {
 			expenseService.updateExpense(id,expense);
 			return "redirect:/expenses";
 		}
-		
+	}
+	// //// SHOW EXPENSE ////
+	@GetMapping("/expenses/{id}/show")
+	public String showExpense(@PathVariable("id") Long id, Model model) {
+		Expense expense = expenseService.findExpenseById(id);
+		model.addAttribute("expense", expense);
+		return "show";
+	}
+	// //// DELETE ////
+	@DeleteMapping("/expenses/{id}/delete")
+	public String deleteExpense(@PathVariable("id") Long id) {
+		expenseService.deleteById(id);
+		return "redirect:/expenses";
 	}
 }

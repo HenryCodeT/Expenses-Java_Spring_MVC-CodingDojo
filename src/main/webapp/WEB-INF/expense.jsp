@@ -45,10 +45,17 @@
 							<c:forEach var="expense" items="${ expenses }">
 								<tr>
 									<td><c:out value="${ expense.getId() }"></c:out></td>
-									<td><c:out value="${ expense.getName() }"></c:out></a></td>
+									<td><a href="/expenses/${ expense.getId() }/show"><c:out value="${ expense.getName() }"></c:out></a></td>
 									<td><c:out value="${ expense.getVendor() }"></c:out></td>
 									<td><fmt:formatNumber value = "${expense.getAmount()}" type = "currency" currencySymbol="$"/></td>
-									<td><a class = "btn btn-warning"href="/expenses/${ expense.getId() }/edit">Edit</a></td>
+									<td class="row align-items-center">
+										<a class = "btn btn-warning col m-2"href="/expenses/${ expense.getId() }/edit">Edit</a>
+										<form class="col m-2" action="/expenses/${ expense.id }/delete" method="post">
+											<!-- ### Converts method of form to DELETE ### -->
+											<input type="hidden" name="_method" value="delete">
+											<button class="btn btn-danger">Delete</button>
+										</form>
+									</td>
 								</tr>							
 							</c:forEach>
 						</tbody>
