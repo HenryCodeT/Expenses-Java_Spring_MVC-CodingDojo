@@ -38,6 +38,7 @@
 								<th scope="col">Expense</th>
 								<th scope="col">Vendor</th>
 								<th scope="col">Amount</th>
+								<th scope="col">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -47,6 +48,7 @@
 									<td><c:out value="${ expense.getName() }"></c:out></a></td>
 									<td><c:out value="${ expense.getVendor() }"></c:out></td>
 									<td><fmt:formatNumber value = "${expense.getAmount()}" type = "currency" currencySymbol="$"/></td>
+									<td><a class = "btn btn-warning"href="/expenses/${ expense.getId() }/edit">Edit</a></td>
 								</tr>							
 							</c:forEach>
 						</tbody>
